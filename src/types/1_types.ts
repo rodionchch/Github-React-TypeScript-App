@@ -43,5 +43,3 @@ const id1 = "1";
 const id2 = 1;
 
 type SomeType = string | null | undefined;
-
-export {};

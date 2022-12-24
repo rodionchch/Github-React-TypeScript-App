@@ -14,5 +14,3 @@ enum SocialMedia {
   INSTAGRAM = "inst",
 }
 console.log("=====>", SocialMedia.VK);
-
-export {};

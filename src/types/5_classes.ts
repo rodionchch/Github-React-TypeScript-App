@@ -64,5 +64,3 @@ class AppComponent extends MyComponent {
     return "This is info";
   }
 }
-
-export {};

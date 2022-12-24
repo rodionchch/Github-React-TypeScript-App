@@ -34,5 +34,3 @@ function position(a?: number, b?: number) {
 console.log("Empty: ", position());
 console.log("One param: ", position(42));
 console.log("two params: ", position(10, 15));
-
-export {};

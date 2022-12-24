@@ -29,13 +29,8 @@ function handle(res: MyResponse | MyError) {
 }
 
 type AlertType = "success" | "danger" | "warning";
-function setAlertType(type: AlertType) {
+function setAlertType(type: AlertType) {}
 
-}
-
-setAlertType('success')
-setAlertType('warning')
+setAlertType("success");
+setAlertType("warning");
 // setAlertType('default') // Error
-
-
-export {};

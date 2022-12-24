@@ -28,5 +28,3 @@ const user2: UserKeysNoMeta2 = {
 };
 
 console.log("user2:", user2);
-
-export {};

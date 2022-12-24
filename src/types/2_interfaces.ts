@@ -68,5 +68,3 @@ const css: Styles = {
 };
 
 console.log(rect1, rect2);
-
-export {};

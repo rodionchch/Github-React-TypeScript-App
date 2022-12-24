@@ -7,5 +7,3 @@ function reverse<T>(array: T[]) {
 
 console.log(reverse(arrayOfNumbers));
 console.log(reverse(arrayOfStrings));
-
-export {};
