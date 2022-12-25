@@ -1,13 +1,24 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import * as mui from "@mui/material";
 import * as icon from "@mui/icons-material";
 
+import { ToggleDrawer } from "types/Drawer";
+
+import { useDebounce } from "hooks/debounce";
+
 import Drawer from "./Drawer";
 
-const AppBar: React.FC<{ label: string }> = ({ label }) => {
-  const [drawerOpen, setDrawerOpen] = useState(false);
+type AppBarProps = {
+  label: string;
+  setEnterSearch: (search: string | null) => void;
+};
 
-  const toggleDrawer = (open?: boolean) => {
+const AppBar: React.FC<AppBarProps> = ({ label, setEnterSearch }) => {
+  const [drawerOpen, setDrawerOpen] = useState(false);
+  const [search, setSearch] = useState("");
+  // const debounced = useDebounce(search, 6 00);
+
+  const toggleDrawer: ToggleDrawer = (open) => {
     setDrawerOpen(open !== undefined ? open : !drawerOpen);
   };
 
@@ -36,6 +47,19 @@ const AppBar: React.FC<{ label: string }> = ({ label }) => {
           >
             {label}
           </mui.Typography>
+          <mui.TextField
+            id="search-input"
+            label="Search"
+            variant="outlined"
+            size="small"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                setEnterSearch(search.length < 3 ? null : search);
+              }
+            }}
+          />
         </mui.Toolbar>
       </mui.AppBar>
     </>

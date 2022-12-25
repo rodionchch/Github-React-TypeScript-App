@@ -1,4 +1,4 @@
-/// <reference path="../namespaces/form-namespace.ts"/>
+/// <reference path="./form-namespace.ts"/>
 
 namespace IForm {
   class MyForm {

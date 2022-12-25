@@ -1,12 +1,18 @@
 import React, { useState } from "react";
+import { Routes, Route, useLocation } from "react-router-dom";
+import Helmet from "react-helmet";
 import * as mui from "@mui/material";
-import * as icon from "@mui/icons-material";
 
-import "../beginer";
-import "../advanced";
+import "lessons/beginer";
+import "lessons/advanced";
+
+import routes from "constants/routes";
+import locationLabel from "constants/locationLabel";
+
+import Home from "pages/HomePage";
+import FavouritesPage from "pages/FavouritesPage";
 
 import AppBar from "./AppBar";
-import Card from "./Card";
 import BottomNavigation from "./BottomNavigation";
 
 const darkTheme = mui.createTheme({
@@ -19,19 +25,26 @@ const darkTheme = mui.createTheme({
 });
 
 const App: React.FC = () => {
-  return (
-    <>
-      <mui.ThemeProvider theme={darkTheme}>
-        <AppBar label={"Hello, world!"} />
-        <mui.Grid container spacing={1} columns={12}>
-          <mui.Grid item xs={6} sm={4} md={3}>
-            <Card />
-          </mui.Grid>
-        </mui.Grid>
+  const { pathname } = useLocation();
+  const [enterSearch, setEnterSearch] = useState<string | null>(null);
 
-        <BottomNavigation />
-      </mui.ThemeProvider>
-    </>
+  return (
+    <mui.ThemeProvider theme={darkTheme}>
+      <Helmet>
+        <title>{locationLabel[pathname]}</title>
+      </Helmet>
+      <AppBar label={locationLabel[pathname]} setEnterSearch={setEnterSearch} />
+
+      <mui.Box padding={1} paddingTop={2} paddingBottom={2}>
+        <Routes>
+          <Route
+            path={routes.home}
+            element={<Home enterSearch={enterSearch} />}
+          />
+          <Route path={routes.favourites} element={<FavouritesPage />} />
+        </Routes>
+      </mui.Box>
+    </mui.ThemeProvider>
   );
 };
 

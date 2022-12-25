@@ -1,46 +1,44 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import * as mui from "@mui/material";
-import * as icon from "@mui/icons-material";
+
+import { ToggleDrawer } from "types/Drawer";
+
+import routes from "constants/routes";
+import locationLabel from "constants/locationLabel";
+import getDrawerIcon from "utils/getDrawerIcon";
 
 type DrawerProps = {
   drawerOpen: boolean;
-  toggleDrawer: () => void;
+  toggleDrawer: ToggleDrawer;
 };
 
 const Drawer: React.FC<DrawerProps> = ({ drawerOpen, toggleDrawer }) => {
+  const navigate = useNavigate();
   return (
     <mui.Drawer
       open={drawerOpen}
       onClose={() => {
-        toggleDrawer();
+        toggleDrawer(false);
       }}
     >
       <mui.Box sx={{ width: 250 }} role="presentation">
         <mui.List>
-          {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
-            <mui.ListItem key={text} disablePadding>
-              <mui.ListItemButton>
-                <mui.ListItemIcon>
-                  {index % 2 === 0 ? <icon.Inbox /> : <icon.Mail />}
-                </mui.ListItemIcon>
-                <mui.ListItemText primary={text} />
+          {Object.values(routes).map((key) => (
+            <mui.ListItem key={locationLabel[key]} disablePadding>
+              <mui.ListItemButton
+                onClick={() => {
+                  navigate(key);
+                  toggleDrawer(false);
+                }}
+              >
+                <mui.ListItemIcon>{getDrawerIcon(key)}</mui.ListItemIcon>
+                <mui.ListItemText primary={locationLabel[key]} />
               </mui.ListItemButton>
             </mui.ListItem>
           ))}
         </mui.List>
         <mui.Divider />
-        <mui.List>
-          {["All mail", "Trash", "Spam"].map((text, index) => (
-            <mui.ListItem key={text} disablePadding>
-              <mui.ListItemButton>
-                <mui.ListItemIcon>
-                  {index % 2 === 0 ? <icon.Inbox /> : <icon.Mail />}
-                </mui.ListItemIcon>
-                <mui.ListItemText primary={text} />
-              </mui.ListItemButton>
-            </mui.ListItem>
-          ))}
-        </mui.List>
       </mui.Box>
     </mui.Drawer>
   );
