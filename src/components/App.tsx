@@ -14,12 +14,13 @@ import FavouritesPage from "pages/FavouritesPage";
 
 import AppBar from "./AppBar";
 import BottomNavigation from "./BottomNavigation";
+import RepoPage from "pages/RepoPage";
 
 const darkTheme = mui.createTheme({
   palette: {
     mode: "dark",
     primary: {
-      main: "#ff0000",
+      main: "#0061fe",
     },
   },
 });
@@ -40,6 +41,10 @@ const App: React.FC = () => {
           <Route
             path={routes.home}
             element={<Home enterSearch={enterSearch} />}
+          />
+          <Route
+            path={routes.repos}
+            element={<RepoPage enterSearch={enterSearch} />}
           />
           <Route path={routes.favourites} element={<FavouritesPage />} />
         </Routes>

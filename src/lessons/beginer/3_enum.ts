@@ -13,4 +13,3 @@ enum SocialMedia {
   FACEBOOK = "fb",
   INSTAGRAM = "inst",
 }
-console.log("=====>", SocialMedia.VK);

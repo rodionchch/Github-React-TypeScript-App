@@ -25,7 +25,7 @@ const Drawer: React.FC<DrawerProps> = ({ drawerOpen, toggleDrawer }) => {
       <mui.Box sx={{ width: 250 }} role="presentation">
         <mui.List>
           {Object.values(routes).map((key) => (
-            <mui.ListItem key={locationLabel[key]} disablePadding>
+            <mui.ListItem key={key} disablePadding>
               <mui.ListItemButton
                 onClick={() => {
                   navigate(key);
