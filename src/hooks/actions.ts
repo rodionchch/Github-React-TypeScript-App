@@ -4,7 +4,7 @@ import { githubReducer, githubActions } from "store/github/github.slice";
 
 const actions = {
   ...githubReducer,
-  ...githubActions
+  ...githubActions,
 };
 
 export const useActions = () => {

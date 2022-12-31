@@ -1,8 +1,7 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import * as mui from "@mui/material";
-import * as icon from "@mui/icons-material";
 
 import { IUser } from "models/models";
 import routes from "constants/routes";
@@ -17,7 +16,7 @@ const Card: React.FC<{ user: IUser }> = ({ user }) => {
   const { favourites } = useAppSelector((state) => state.github);
 
   const [isFavourite, setIsFavourite] = useState(
-    favourites.includes(user.html_url)
+    favourites.includes(user.login)
   );
 
   const navigate = useNavigate();
@@ -26,25 +25,23 @@ const Card: React.FC<{ user: IUser }> = ({ user }) => {
     navigate(generateLink(routes.repos, { username }));
   };
 
-  const addToFavourite = (event: React.MouseEvent<HTMLDivElement>) => {
-    event.preventDefault();
-
-    addFavourite(user.html_url);
-  };
-
-  const removeToFavourite = (event: React.MouseEvent<HTMLDivElement>) => {
-    event.preventDefault();
-
-    removeFavourite(user.html_url);
-  };
+  const onFavourite = useCallback(() => {
+    if (isFavourite) {
+      removeFavourite(user.login);
+      setIsFavourite(false);
+    } else {
+      addFavourite(user.login);
+      setIsFavourite(true);
+    }
+  }, [isFavourite, user.html_url]);
 
   return (
-    <mui.Card
-      onClick={() => {
-        onClickRepos(login);
-      }}
-    >
-      <mui.CardActionArea>
+    <mui.Card>
+      <mui.CardActionArea
+        onClick={() => {
+          onClickRepos(login);
+        }}
+      >
         <mui.CardMedia
           component="img"
           height="140"
@@ -55,24 +52,23 @@ const Card: React.FC<{ user: IUser }> = ({ user }) => {
           <mui.Typography gutterBottom variant="h5" component="div">
             {login}
           </mui.Typography>
-          <mui.Typography variant="body2" color="text.secondary">
+          <mui.Typography
+            sx={{
+              overflow: "hidden",
+              textOverflow: "ellipsis",
+              whiteSpace: "nowrap",
+            }}
+          >
             {url}
           </mui.Typography>
-
-          <mui.ListItemButton
-            onClick={(event) => {
-              if (isFavourite) {
-                removeToFavourite(event);
-              } else addToFavourite(event);
-            }}
-            selected={isFavourite}
-          >
-            <mui.ListItemIcon>
-              <icon.Favorite />
-            </mui.ListItemIcon>
-          </mui.ListItemButton>
         </mui.CardContent>
       </mui.CardActionArea>
+
+      <mui.CardActions>
+        <mui.Button onClick={onFavourite}>
+          {isFavourite ? "Remove" : "Add"}
+        </mui.Button>
+      </mui.CardActions>
     </mui.Card>
   );
 };
