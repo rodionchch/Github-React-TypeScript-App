@@ -3,9 +3,6 @@ import { Routes, Route, useLocation } from "react-router-dom";
 import Helmet from "react-helmet";
 import * as mui from "@mui/material";
 
-import "lessons/beginer";
-import "lessons/advanced";
-
 import routes from "constants/routes";
 import locationLabel from "constants/locationLabel";
 

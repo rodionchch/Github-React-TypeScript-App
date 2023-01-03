@@ -5,13 +5,17 @@ import * as mui from "@mui/material";
 import { ToggleDrawer } from "types/Drawer";
 
 import routes from "constants/routes";
-import locationLabel from "constants/locationLabel";
 import getDrawerIcon from "utils/getDrawerIcon";
 
 type DrawerProps = {
   drawerOpen: boolean;
   toggleDrawer: ToggleDrawer;
 };
+
+const menu = [
+  { label: "Home", pathname: routes.home },
+  { label: "Favourites", pathname: routes.favourites },
+];
 
 const Drawer: React.FC<DrawerProps> = ({ drawerOpen, toggleDrawer }) => {
   const navigate = useNavigate();
@@ -24,16 +28,16 @@ const Drawer: React.FC<DrawerProps> = ({ drawerOpen, toggleDrawer }) => {
     >
       <mui.Box sx={{ width: 250 }} role="presentation">
         <mui.List>
-          {Object.values(routes).map((key) => (
-            <mui.ListItem key={key} disablePadding>
+          {menu.map(({ label, pathname }) => (
+            <mui.ListItem key={pathname} disablePadding>
               <mui.ListItemButton
                 onClick={() => {
-                  navigate(key);
+                  navigate(pathname);
                   toggleDrawer(false);
                 }}
               >
-                <mui.ListItemIcon>{getDrawerIcon(key)}</mui.ListItemIcon>
-                <mui.ListItemText primary={locationLabel[key]} />
+                <mui.ListItemIcon>{getDrawerIcon(pathname)}</mui.ListItemIcon>
+                <mui.ListItemText primary={label} />
               </mui.ListItemButton>
             </mui.ListItem>
           ))}
